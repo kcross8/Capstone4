@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "TasksIndex";
+}
+
+<h1>Tasks Index</h1>
+
+@model List<Tasks>
+
+<table id="myTable" class="table">
+
+    <tr>
+        <th onclick="sortTable(0)">Description</th>
+        <th onclick="sortTable(1)">Due Date</th>
+        <th onclick="sortTable(2)">Completed?</th>
+    </tr>
+
+    @foreach (var t in Model)
+    {
+         
+       
+        <tr>
+            <td>@t.Description</td>
+            <td>@t.DueDate</td>
+            <td>@t.Complete</td>
+            <td>
+                <a href="CompleteTask?id=@t.Id">Mark Complete</a>
+            </td>
+            <td>
+                <a href="DeleteTask?id=@t.Id">Delete Task</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable");
+    switching = true;
+    dir = "asc";
+    while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+    shouldSwitch = false;
+    x = rows[i].getElementsByTagName("TD")[n];
+    y = rows[i + 1].getElementsByTagName("TD")[n];
+    if (dir == "asc") {
+    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+    shouldSwitch= true;
+    break;
+    }
+    } else if (dir == "desc") {
+    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+    shouldSwitch = true;
+    break;
+    }
+    }
+    }
+    if (shouldSwitch) {
+    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+    switching = true;
+    switchcount ++;
+    } else {
+    if (switchcount == 0 && dir == "asc") {
+    dir = "desc";
+    switching = true;
+    }
+    }
+    }
+    }
+    </script>
+

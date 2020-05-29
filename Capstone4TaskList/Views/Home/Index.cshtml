@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1 class="display-4">Welcome @User.Identity.Name!</h1>
+    <p>Would you like to go to <a href="Tasks/TasksIndex">Task List</a> or <a href="Tasks/AddTask">add new tasks?</a> </p>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Please <a href="Identity/Account/Login">log in</a> or <a href="Identity/Account/Register">register</a> an account to manage your task list.</p>
+    </div>
+}
