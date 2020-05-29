@@ -5,6 +5,8 @@
 
 <h1>Tasks Index</h1>
 
+<p>Click on the headers to sort by Due Date or Completion Status.</p>
+
 @model List<Tasks>
 
 <table id="myTable" class="table">
@@ -17,11 +19,11 @@
 
     @foreach (var t in Model)
     {
-         
-       
+        string newDate = t.DueDate.ToString("yyyy/MM/dd");
+
         <tr>
             <td>@t.Description</td>
-            <td>@t.DueDate</td>
+            <td>@newDate</td>
             <td>@t.Complete</td>
             <td>
                 <a href="CompleteTask?id=@t.Id">Mark Complete</a>
